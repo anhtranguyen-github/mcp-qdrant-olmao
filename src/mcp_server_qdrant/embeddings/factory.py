@@ -13,5 +13,9 @@ def create_embedding_provider(settings: EmbeddingProviderSettings) -> EmbeddingP
         from mcp_server_qdrant.embeddings.fastembed import FastEmbedProvider
 
         return FastEmbedProvider(settings.model_name)
+    elif settings.provider_type == EmbeddingProviderType.OLLAMA:
+        from mcp_server_qdrant.embeddings.ollama import OllamaEmbeddingProvider
+
+        return OllamaEmbeddingProvider(settings.model_name, settings.ollama_host)
     else:
         raise ValueError(f"Unsupported embedding provider: {settings.provider_type}")
